@@ -1,0 +1,32 @@
+Input:                                                       
+N = 4                                        
+A[] = {1, 4, 3}
+Output:
+2     
+Explanation:
+Vaibhav placed 4 integers but he picked
+up only 3 numbers. So missing number
+will be 2 as it will become 1,2,3,4.
+
+Solution :
+n=(n+1)/2 find total number of sum
+then find array of sum
+then find difference between both
+
+Optimal Solution :
+
+class Compute {
+    
+    public static int missingNumber(int A[], int N)
+    {
+         // Your code goes here
+         int xor1=0,xor2=0;
+         int n=N-1;
+         for(int i=0;i<n;i++){
+             xor2=xor2^A[i];
+             xor1=xor1^(i+1);
+         }
+         xor1=xor1^N;
+         return xor1^xor2;
+    }
+}
