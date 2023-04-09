@@ -1,0 +1,68 @@
+Given an array arr[] of size N and an integer K, the task is to left rotate the array K indexes
+
+Example 1:
+
+Input: N = 7, K = 2
+arr[] = {1, 2, 3, 4, 5, 6, 7}
+Output: 3 4 5 6 7 1 2
+Explanation: Rotation of the above 
+array by 2 will make the output array 
+
+Solution : ***GFG
+
+class Solution
+{
+    void leftRotate(long a[], int k,int n)
+    {
+        if(n==0) return;
+        
+        k=k%n;
+        
+        long[] temp = new long[k];
+        //step 1: Copying first d elements
+        // in the temporary array:
+        for(int i=0;i<k;i++){
+            temp[i]=a[i];
+        }
+        // step 2: Shift last (n-d) elements
+        // to the left by d places in the given array:
+        for(int i=k;i<n;i++){
+            a[i-k]=a[i];
+        }
+            //step 3: Place the elements of the temporary
+        // array in the last d places of the given array:
+        for(int i=n-k;i<n;i++){
+            a[i]=temp[i-(n-k)];
+        }
+    }
+}
+
+Time complexity = O(k)+O(n-k)+O(k) = O(n+k)  Space Complexity = O(k)
+
+****Optimal Solution
+
+class Solution
+{
+    void reverse(long a[],int start,int end){
+        while(start<end){
+            long temp=a[start];
+            a[start]=a[end];
+            a[end]=temp;
+            start++;
+            end--;
+        }
+    }
+    void leftRotate(long a[], int k,int n)
+    {
+        if(n==0) return;
+        
+        k=k%n;
+        
+        reverse(a,0,k-1);
+        reverse(a,k,n-1);
+        reverse(a,0,n-1);
+     }
+  }
+
+Time complexity : O(k)+O(n-k)+O(n) =O(2n)
+Space Complexity : O(1)
